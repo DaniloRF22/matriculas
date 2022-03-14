@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
+const estudiantesRoutes = require('./estudiantes/estudiantes');
+const aulasRoutes = require('./aulas/aulas');
+
 const { verifyApiHeaderToken} = require('./headerVerifyMiddleware');
-const {passport, jwtMiddleware} = require('./seguridad/jwtHelper');
 
-
-const estudiantesRoutes= require('./estudiantes/estudiantes');
-
-
-
-
-router.use('/estudiantes',verifyApiHeaderToken, jwtMiddleware , estudaintesRoutes);
+router.use('/estudiantes',verifyApiHeaderToken, estudiantesRoutes);
+router.use('/aulas',verifyApiHeaderToken,aulasRoutes);
