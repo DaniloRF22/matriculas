@@ -1,6 +1,7 @@
 const express= require('express');
 const router = express.Router();
-
+/* const {validatenew} = require('../validators/aulasValidacion');
+const {validateupdate} = require('../validators/aulasValidacion'); */
 const Aulas = require('../../../../dao/aulas/aulas.model');
 const aulasModel = new Aulas();
 

@@ -8,3 +8,5 @@ const { verifyApiHeaderToken} = require('./headerVerifyMiddleware');
 
 router.use('/estudiantes',verifyApiHeaderToken, estudiantesRoutes);
 router.use('/aulas',verifyApiHeaderToken,aulasRoutes);
+
+module.exports= router;

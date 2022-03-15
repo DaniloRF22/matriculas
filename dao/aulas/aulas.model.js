@@ -51,7 +51,7 @@ class Aulas {
     return myDocument;
   }
 
-  async updateOne(numero) {
+  async updateOne(id,numero) {
     const filter = {_id: new ObjectId(id)};
     // UPDATE aulas SET campo=valor, campo=valor where id= id;
     const updateCmd = {
