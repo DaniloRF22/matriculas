@@ -83,6 +83,11 @@ class Estudiantes {
     const myDocument = await this.collection.deleteOne(filter);
     return myDocument;
   }
+
+  async detectedId (identidad){
+    const filter = {identidad};
+    return await this.collection.findOne(filter);
+  }
 }
 
 module.exports = Estudiantes;

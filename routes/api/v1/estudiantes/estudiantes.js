@@ -19,7 +19,7 @@ router.get('/', (req, res)=> {
 
 router.get('/all', async (req, res) => {
     try {
-      const rows = await estudaintesModel.getAll();
+      const rows = await estudiantesModel.getAll();
       res.status(200).json({status:'ok', estudiantes: rows});
     } catch (ex) {
       console.log(ex);
@@ -61,13 +61,19 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
 
 router.post('/new',validatenew, async (req, res) => {
     const { identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo } = req.body;
+    const busqueda = await estudiantesModel.detectedId(identidad)
     try {
-        rslt = await estudaintesModel.new( identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
-        res.status(200).json(
+        if(!busqueda){
+          rslt = await estudiantesModel.new( identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
+          res.status(200).json(
           {
             status: 'ok',
             result: rslt
           });
+        }else{
+          res.status(400).json({status:'Estudiante con esta identidad ya fue ingresado', error:1});
+        }
+        
       } catch (ex) {
         console.log(ex);
         res.status(500).json(
@@ -84,7 +90,7 @@ router.put('/update/:id',validateupdate, async (req, res) => {
     try{
       const { identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo  } = req.body;
       const { id } = req.params;
-      const result = await estudaintesModel.updateOne( id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
+      const result = await estudiantesModel.updateOne( id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
       res.status(200).json({
         status:'ok',
         result
@@ -99,7 +105,7 @@ router.put('/update/:id',validateupdate, async (req, res) => {
   router.delete('/delete/:id', validatedelete, async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await estudaintesModel.deleteOne(id);
+      const result = await estudiantesModel.deleteOne(id);
       res.status(200).json({
         status: 'ok',
         result
