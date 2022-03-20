@@ -2,13 +2,13 @@ const ObjectId = require('mongodb').ObjectId;
 const getDb = require('../mongodb');
 
 let db = null;
-class Estudiantes {
+class Maestros {
   collection = null;
   constructor() {
     getDb()
       .then((database) => {
         db = database;
-        this.collection = db.collection('estudiantes');
+        this.collection = db.collection('maestros');
         if (process.env.MIGRATE === 'true') {
           // Por Si se ocupa algo
         }
@@ -16,18 +16,19 @@ class Estudiantes {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
-    const newEstudiante = {
+  async new(identidad, nombres, apellidos, email, telefono, direccion, materias,grados) {
+    const newMaestro = {
         identidad,
         nombres,
         apellidos,
-        edad, grado,
+        email,
         seccion,
-        nombre_encargado,
-        telefono_encargado,
-        correo
+        telefono,
+        direccion,
+        materias,
+        grados
     };
-    const rslt = await this.collection.insertOne(newEstudiante);
+    const rslt = await this.collection.insertOne(newMaestro);
     return rslt;
   }
 
@@ -58,19 +59,19 @@ class Estudiantes {
     return myDocument;
   }
 
-  async updateOne(id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
+  async updateOne(id, identidad, nombres, apellidos, email, telefono, direccion, materias,grados ) {
     const filter = {_id: new ObjectId(id)};
-    // UPDATE ESTUDIANTES SET campo=valor, campo=valor where id= id;
+    // UPDATE MAESTROS SET campo=valor, campo=valor where id= id;
     const updateCmd = {
       '$set':{
         identidad,
         nombres,
         apellidos,
-        edad, grado,
-        seccion,
-        nombre_encargado,
-        telefono_encargado,
-        correo
+        email,
+        telefono,
+        direccion,
+        materias,
+        grados
       }
     };
     return await this.collection.updateOne(filter, updateCmd);
@@ -90,4 +91,4 @@ class Estudiantes {
   }
 }
 
-module.exports = Estudiantes;
+module.exports = Maestros;
