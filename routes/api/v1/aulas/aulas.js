@@ -1,7 +1,7 @@
 const express= require('express');
 const router = express.Router();
-/* const {validatenew} = require('../validators/aulasValidacion');
-const {validateupdate} = require('../validators/aulasValidacion'); */
+const {validatenew} = require('../validators/aulasValidacion');
+const {validateupdate} = require('../validators/aulasValidacion');
 const Aulas = require('../../../../dao/aulas/aulas.model');
 const aulasModel = new Aulas();
 
@@ -55,15 +55,20 @@ router.get('/byid/:id', async (req, res) => {
     }
   });
 
-router.post('/new', async (req, res) => {
+router.post('/new',validatenew, async (req, res) => {
     const { numero } = req.body;
+    const busqueda = await aulasModel.detectedNumber(numero)
     try {
-        rslt = await aulasModel.new(numero);
+        if(!busqueda){
+          rslt = await aulasModel.new(numero);
         res.status(200).json(
           {
             status: 'ok',
             result: rslt
           });
+        }else{
+          res.status(400).json({status:'Numero de aula ya registrado', error:1});
+        }
       } catch (ex) {
         console.log(ex);
         res.status(500).json(
@@ -76,15 +81,22 @@ router.post('/new', async (req, res) => {
 
 
 //router.put();
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id',validateupdate, async (req, res) => {
     try{
       const { numero } = req.body;
       const { id } = req.params;
-      const result = await aulasModel.updateOne( id, numero);
-      res.status(200).json({
+      const busqueda = await aulasModel.detectedNumber(numero)
+      if(!busqueda){
+        const result = await aulasModel.updateOne( id, numero);
+        res.status(200).json({
         status:'ok',
         result
       });
+      }else{
+        res.status(400).json({status:'Numero de aula ya registrado', error:1});
+      }
+
+      
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });

@@ -3,8 +3,12 @@ const { validateResult } = require("./validateHerper");
 
 const validatenew = [
     check('numero')
+    .exists()
+    .not()
     .isEmpty()
-    .isNumeric(),
+    .isNumeric()
+    .isLength({max:1})
+    .isLength({min:1}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -13,9 +17,11 @@ const validatenew = [
 const validateupdate = [
     check('numero')
     .exists()
+    .not()
     .isEmpty()
     .isNumeric()
-    .isLength({max:2}),
+    .isLength({max:1})
+    .isLength({min:1}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }

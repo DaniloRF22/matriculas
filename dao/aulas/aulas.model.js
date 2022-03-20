@@ -69,6 +69,10 @@ class Aulas {
     const myDocument = await this.collection.deleteOne(filter);
     return myDocument;
   }
+  async detectedNumber (numero){
+    const filter = {numero};
+    return await this.collection.findOne(filter);
+  }
 }
 
 module.exports = Aulas;
