@@ -92,9 +92,11 @@ router.put('/update/:id',validateupdate, async (req, res) => {
       const { id } = req.params;
       const result = await estudiantesModel.updateOne( id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
       res.status(200).json({
-        status:'ok',
-        result
+      status:'ok',
+      result
       });
+        res.status(400).json({status:'Estudiante con esta identidad ya fue ingresado', error:1});
+      
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });

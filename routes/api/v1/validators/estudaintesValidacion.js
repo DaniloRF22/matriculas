@@ -39,8 +39,8 @@ const validatenew = [
         .not()
         .isEmpty()
         .isNumeric()
-        .isLength({max: 1})
-        .isLength({min: 1}),
+        .isLength({max: 2})
+        .isLength({min: 2}),
     check('seccion')
         .exists()
         .not()
@@ -97,8 +97,8 @@ check('grado')
     .not()
     .isEmpty()
     .isNumeric()
-    .isLength({max: 1})
-    .isLength({min: 1}),
+    .isLength({max: 2})
+    .isLength({min: 2}),
 check('seccion')
     .exists()
     .not()

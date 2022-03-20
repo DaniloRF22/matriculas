@@ -58,7 +58,7 @@ class Estudiantes {
     return myDocument;
   }
 
-  async updateOne(identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
+  async updateOne(id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
     const filter = {_id: new ObjectId(id)};
     // UPDATE PACIENTES SET campo=valor, campo=valor where id= id;
     const updateCmd = {
