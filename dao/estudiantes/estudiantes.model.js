@@ -16,13 +16,12 @@ class Estudiantes {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
+  async new(identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo) {
     const newEstudiante = {
         identidad,
         nombres,
         apellidos,
-        edad, grado,
-        seccion,
+        edad,
         nombre_encargado,
         telefono_encargado,
         correo
@@ -58,7 +57,7 @@ class Estudiantes {
     return myDocument;
   }
 
-  async updateOne(id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo) {
+  async updateOne(id, identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo) {
     const filter = {_id: new ObjectId(id)};
     // UPDATE ESTUDIANTES SET campo=valor, campo=valor where id= id;
     const updateCmd = {
@@ -66,8 +65,7 @@ class Estudiantes {
         identidad,
         nombres,
         apellidos,
-        edad, grado,
-        seccion,
+        edad,
         nombre_encargado,
         telefono_encargado,
         correo

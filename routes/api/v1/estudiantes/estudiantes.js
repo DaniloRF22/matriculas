@@ -60,11 +60,11 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
   });
 
 router.post('/new',validatenew, async (req, res) => {
-    const { identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo } = req.body;
+    const { identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo } = req.body;
     const busqueda = await estudiantesModel.detectedId(identidad)
     try {
         if(!busqueda){
-          rslt = await estudiantesModel.new( identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
+          rslt = await estudiantesModel.new( identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo );
           res.status(200).json(
           {
             status: 'ok',
@@ -88,9 +88,9 @@ router.post('/new',validatenew, async (req, res) => {
 //router.put();
 router.put('/update/:id',validateupdate, async (req, res) => {
     try{
-      const { identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo  } = req.body;
+      const { identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo  } = req.body;
       const { id } = req.params;
-      const result = await estudiantesModel.updateOne( id, identidad, nombres, apellidos, edad, grado, seccion, nombre_encargado, telefono_encargado, correo );
+      const result = await estudiantesModel.updateOne( id, identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo );
       res.status(200).json({
       status:'ok',
       result
