@@ -60,11 +60,11 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
   });
 
 router.post('/new',validatenew, async (req, res) => {
-    const { seccion,grado,maestro } = req.body;
+    const { seccion } = req.body;
     const busqueda = await seccionesModel.detectedId(seccion)
     try {
         if(!busqueda){
-          rslt = await seccionesModel.new( seccion,grado,maestro );
+          rslt = await seccionesModel.new( seccion);
           res.status(200).json(
           {
             status: 'ok',
@@ -87,19 +87,26 @@ router.post('/new',validatenew, async (req, res) => {
 
 //router.put();
 router.put('/update/:id',validateupdate, async (req, res) => {
-    try{
-      const {seccion,grado,maestro } = req.body;
-      const { id } = req.params;
-      const result = await seccionesModel.updateOne( id, seccion,grado,maestro );
+  try{
+    const { seccion } = req.body;
+    const { id } = req.params;
+    const busqueda = await seccionesModel.detectedId(seccion)
+    if(!busqueda){
+      const result = await seccionesModel.updateOne( id, seccion);
       res.status(200).json({
-        status:'ok',
-        result
-      });
-    } catch(ex){
-      console.log(ex);
-      res.status(500).json({ status: 'failed' });
+      status:'ok',
+      result
+    });
+    }else{
+      res.status(400).json({status:'Ya existe una seccion como la que desea ingresar', error:1});
     }
-  });
+
+    
+  } catch(ex){
+    console.log(ex);
+    res.status(500).json({ status: 'failed' });
+  }
+});
 
   //router.delete();
   router.delete('/delete/:id', validatedelete, async (req, res) => {

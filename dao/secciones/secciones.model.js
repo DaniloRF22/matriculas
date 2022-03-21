@@ -16,11 +16,9 @@ class Secciones {
       .catch((err) => { console.error(err) });
   }
 
-  async new(seccion,grado,maestro) {
+  async new(seccion) {
     const newSeccion = {  
-        seccion,
-        grado,
-        maestro
+        seccion
     };
     const rslt = await this.collection.insertOne(newSeccion);
     return rslt;
@@ -53,13 +51,13 @@ class Secciones {
     return myDocument;
   }
 
-  async updateOne(seccion,grado,maestro) {
+  async updateOne(id,seccion) {
     const filter = {_id: new ObjectId(id)};
     const updateCmd = {
       '$set':{
-        seccion,
-        grado,
-        maestro
+      
+        seccion
+        
       }
     };
     return await this.collection.updateOne(filter, updateCmd);

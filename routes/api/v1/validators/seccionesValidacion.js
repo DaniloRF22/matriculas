@@ -15,15 +15,8 @@ const validatenew = [
     check('seccion')
         .exists()
         .not()
-        .isEmpty(),
-    check('grado')
-        .exists()
-        .not()
-        .isEmpty(),
-    check('maestro')
-        .exists()
-        .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -33,15 +26,8 @@ const validateupdate = [
     check('seccion')
         .exists()
         .not()
-        .isEmpty(),
-    check('grado')
-        .exists()
-        .not()
-        .isEmpty(),
-    check('maestro')
-        .exists()
-        .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }

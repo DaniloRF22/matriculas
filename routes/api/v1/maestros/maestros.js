@@ -5,7 +5,7 @@ const {validatenew} = require('../validators/maestrosValidacion');
 const {validateupdate} = require('../validators/maestrosValidacion');
 const {validatedelete} = require('../validators/maestrosValidacion');
 
-const Maestros = require('../../../../dao/maestros/maestros.model');
+const Maestros = require('../../../../dao/maestros/mestros.model');
 const maestrosModel = new Maestros();
 
 router.get('/', (req, res)=> {
