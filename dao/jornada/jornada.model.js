@@ -10,7 +10,6 @@ class Jornada {
         db = database;
         this.collection = db.collection('jornadas');
         if (process.env.MIGRATE === 'true') {
-          
         }
       })
       .catch((err) => { console.error(err) });
@@ -51,7 +50,7 @@ class Jornada {
     return myDocument;
   }
 
-  async updateOne(tipojornada) {
+  async updateOne(id, tipojornada) {
     const filter = {_id: new ObjectId(id)};
     const updateCmd = {
       '$set':{

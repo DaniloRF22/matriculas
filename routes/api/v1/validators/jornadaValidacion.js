@@ -15,7 +15,9 @@ const validatenew = [
     check('tipojornada')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha()
+        .isLength({max: 10}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -25,7 +27,9 @@ const validateupdate = [
     check('tipojornada')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha()
+        .isLength({max: 10}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }

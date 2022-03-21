@@ -44,7 +44,7 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
     const items = parseInt(req.params.items, 10);
     if (allowedItemsNumber.includes(items)) {
       try {
-        const estudaintes = await jornadaModel.getFaceted(page, items);
+        const jornadas = await jornadaModel.getFaceted(page, items);
         res.status(200).json({docs:jornadas});
       } catch (ex) {
         console.log(ex);
@@ -57,18 +57,18 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
   });
 
 router.post('/new',validatenew, async (req, res) => {
-    const { tipoJonada } = req.body;
-    const busqueda = await jornadaModel.detectedId(tipoJonada)
+    const { tipojornada } = req.body;
+    const busqueda = await jornadaModel.detectedId(tipojornada)
     try {
         if(!busqueda){
-          rslt = await jornadaModel.new( tipoJonada );
+          rslt = await jornadaModel.new( tipojornada );
           res.status(200).json(
           {
             status: 'ok',
             result: rslt
           });
         }else{
-          res.status(400).json({status:'Ya existe jornada', error:1});
+          res.status(400).json({status:'Ya existe la jornada', error:1});
         }
         
       } catch (ex) {
@@ -83,13 +83,19 @@ router.post('/new',validatenew, async (req, res) => {
 
 router.put('/update/:id',validateupdate, async (req, res) => {
     try{
-      const { tipoJonada} = req.body;
+      const { tipojornada} = req.body;
       const { id } = req.params;
-      const result = await jornadaModel.updateOne( id, tipoJonada );
-      res.status(200).json({
-        status:'ok',
-        result
-      });
+      const busqueda = await jornadaModel.detectedId(tipojornada)
+      if(!busqueda){
+        const result = await jornadaModel.updateOne( id, tipojornada );
+        res.status(200).json(
+        {
+          status: 'ok',
+          result
+        });
+      }else{
+        res.status(400).json({status:'Ya existe la jornada', error:1});
+      }
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });
