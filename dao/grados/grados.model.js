@@ -15,10 +15,9 @@ class Grados {
       .catch((err) => { console.error(err) });
   }
 
-  async new(grado, seccion) {
+  async new(grado) {
     const newGrado = {
-        grado,
-        seccion
+        grado
     };
     const rslt = await this.collection.insertOne(newGrado);
     return rslt;
@@ -52,12 +51,11 @@ class Grados {
     return myDocument;
   }
 
-  async updateOne(grado, seccion) {
+  async updateOne(id, grado) {
     const filter = {_id: new ObjectId(id)};
     const updateCmd = {
       '$set':{
-        grado,
-        seccion
+        grado
       }
     };
     return await this.collection.updateOne(filter, updateCmd);

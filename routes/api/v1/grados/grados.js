@@ -58,18 +58,18 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
   });
 
 router.post('/new',validatenew, async (req, res) => {
-    const { grado, seccion} = req.body;
+    const { grado} = req.body;
     const busqueda = await gradosModel.detectedId(grado)
     try {
         if(!busqueda){
-          rslt = await gradosModel.new( grado, seccion);
+          rslt = await gradosModel.new( grado);
           res.status(200).json(
           {
             status: 'ok',
             result: rslt
           });
         }else{
-          res.status(400).json({status:'Ya existe este grado y esta seccion', error:1});
+          res.status(400).json({status:'Ya existe este grado', error:1});
         }
         
       } catch (ex) {
@@ -85,13 +85,19 @@ router.post('/new',validatenew, async (req, res) => {
 
 router.put('/update/:id',validateupdate, async (req, res) => {
     try{
-      const { grado, seccion } = req.body;
+      const { grado } = req.body;
       const { id } = req.params;
-      const result = await gradosModel.updateOne( id, grado,seccion );
-      res.status(200).json({
-        status:'ok',
-        result
-      });
+      const busqueda = await gradosModel.detectedId(grado)
+      if(!busqueda){
+        const result = await gradosModel.updateOne( id, grado );
+        res.status(200).json(
+        {
+          status: 'ok',
+          result
+        });
+      }else{
+        res.status(400).json({status:'Ya existe este grado', error:1});
+      }
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });

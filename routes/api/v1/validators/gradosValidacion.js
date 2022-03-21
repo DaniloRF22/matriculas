@@ -19,11 +19,6 @@ const validatenew = [
         .isNumeric()
         .isLength({max: 1})
         .isLength({min: 1}),
-    check('seccion')
-        .exists()
-        .not()
-        .isEmpty()
-        .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -37,11 +32,6 @@ const validateupdate = [
         .isNumeric()
         .isLength({max: 1})
         .isLength({min: 1}),
-    check('seccion')
-        .exists()
-        .not()
-        .isEmpty()
-        .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
