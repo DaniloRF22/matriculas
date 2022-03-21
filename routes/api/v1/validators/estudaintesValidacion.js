@@ -22,11 +22,13 @@ const validatenew = [
     check('nombres')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     check('apellidos')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     check('edad')
         .exists()
         .not()
@@ -37,7 +39,8 @@ const validatenew = [
     check('nombre_encargado')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     check('telefono_encargado')
         .exists()
         .not()
@@ -66,11 +69,13 @@ const validateupdate = [
 check('nombres')
     .exists()
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isAlpha(),
 check('apellidos')
     .exists()
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isAlpha(),
 check('edad')
     .exists()
     .not()
@@ -81,7 +86,8 @@ check('edad')
 check('nombre_encargado')
     .exists()
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isAlpha(),
 check('telefono_encargado')
     .exists()
     .not()
