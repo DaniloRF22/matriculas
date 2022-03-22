@@ -51,7 +51,7 @@ class Horarios {
     return myDocument;
   }
 
-  async updateOne(hora) {
+  async updateOne(id,hora) {
     const filter = {_id: new ObjectId(id)};
     const updateCmd = {
       '$set':{

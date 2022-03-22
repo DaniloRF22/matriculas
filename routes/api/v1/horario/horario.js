@@ -87,11 +87,17 @@ router.put('/update/:id',validateupdate, async (req, res) => {
     try{
       const { hora } = req.body;
       const { id } = req.params;
-      const result = await horariosModel.updateOne( id, hora );
-      res.status(200).json({
-        status:'ok',
-        result
-      });
+      const busqueda = await horariosModel.detectedId(hora)
+      if(!busqueda){
+        const result = await horariosModel.updateOne( id, hora );
+        res.status(200).json(
+        {
+          status: 'ok',
+          result
+        });
+      }else{
+        res.status(400).json({status:'Ya existe esta hora', error:1});
+      }
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });

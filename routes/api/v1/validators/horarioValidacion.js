@@ -15,7 +15,9 @@ const validatenew = [
     check('hora')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isLength({max:7})
+        .isLength({min:7}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -25,7 +27,9 @@ const validateupdate = [
     check('hora')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isLength({max:7})
+        .isLength({min:7}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
