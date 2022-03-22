@@ -16,13 +16,12 @@ class Maestros {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, email, telefono, direccion, materias,grados) {
+  async new(identidad, nombres, apellidos, email, telefono, direccion, materias, grados) {
     const newMaestro = {
         identidad,
         nombres,
         apellidos,
         email,
-        seccion,
         telefono,
         direccion,
         materias,

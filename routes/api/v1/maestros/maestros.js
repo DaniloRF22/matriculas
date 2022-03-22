@@ -60,11 +60,11 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
   });
 
 router.post('/new',validatenew, async (req, res) => {
-    const { identidad, nombres, apellidos, email, telefono, direccion, materias,grados } = req.body;
+    const { identidad, nombres, apellidos, email, telefono, direccion, materias, grados } = req.body;
     const busqueda = await maestrosModel.detectedId(identidad)
     try {
         if(!busqueda){
-          rslt = await maestrosModel.new( identidad, nombres, apellidos, email, telefono, direccion, materias,grados );
+          rslt = await maestrosModel.new( identidad, nombres, apellidos, email, telefono, direccion, materias, grados );
           res.status(200).json(
           {
             status: 'ok',

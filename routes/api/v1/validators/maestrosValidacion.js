@@ -22,32 +22,32 @@ const validatenew = [
     check('nombres')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
+
     check('apellidos')
         .exists()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .isAlpha(),
     check('email')
         .exists()
         .not()
         .isEmpty()
-        .isNumeric()
-        .isLength({max: 2})
-        .isLength({min: 2}),
+        .isEmail(),
     check('telefono')
         .exists()
         .not()
         .isEmpty()
         .isNumeric()
-        .isLength({max: 2})
-        .isLength({min: 2}),
+        .isLength({max: 8})
+        .isLength({min: 8}),
     check('direccion')
         .exists()
         .not()
-        .isEmpty()
-        .isNumeric()
-        .isLength({max: 1})
-        .isLength({min: 1}),
+        .isEmpty(),
+       
+     
     check('materias')
         .exists()
         .not()
@@ -57,61 +57,62 @@ const validatenew = [
         .not()
         .isEmpty()
         .isNumeric()
-        .isLength({max: 8})
-        .isLength({min: 8}),
+        .isLength({max: 1})
+        .isLength({min: 1}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
 ]
 
 const validateupdate = [
-    check('identidad')
-    .exists()
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .isLength({max: 13})
-    .isLength({min: 13}),
-check('nombres')
-    .exists()
-    .not()
-    .isEmpty(),
-check('apellidos')
-    .exists()
-    .not()
-    .isEmpty(),
-check('email')
-    .exists()
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .isLength({max: 2})
-    .isLength({min: 2}),
-check('telefono')
-    .exists()
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .isLength({max: 2})
-    .isLength({min: 2}),
-check('direccion')
-    .exists()
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .isLength({max: 1})
-    .isLength({min: 1}),
-check('materias')
-    .exists()
-    .not()
-    .isEmpty(),
-check('grados')
-    .exists()
-    .not()
-    .isEmpty()
-    .isNumeric()
-    .isLength({max: 8})
-    .isLength({min: 8}),
+
+  check('identidad')
+        .exists()
+        .not()
+        .isEmpty()
+        .isNumeric()
+        .isLength({max: 13})
+        .isLength({min: 13}),
+    check('nombres')
+        .exists()
+        .not()
+        .isEmpty()
+        .isAlpha(),
+
+    check('apellidos')
+        .exists()
+        .not()
+        .isEmpty()
+        .isAlpha(),
+    check('email')
+        .exists()
+        .not()
+        .isEmpty()
+        .isEmail(),
+    check('telefono')
+        .exists()
+        .not()
+        .isEmpty()
+        .isNumeric()
+        .isLength({max: 8})
+        .isLength({min: 8}),
+    check('direccion')
+        .exists()
+        .not()
+        .isEmpty(),
+       
+     
+    check('materias')
+        .exists()
+        .not()
+        .isEmpty(),
+    check('grados')
+        .exists()
+        .not()
+        .isEmpty()
+        .isNumeric()
+        .isLength({max: 1})
+        .isLength({min: 1}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
