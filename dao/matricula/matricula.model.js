@@ -2,13 +2,13 @@ const ObjectId = require('mongodb').ObjectId;
 const getDb = require('../mongodb');
 
 let db = null;
-class Maestros {
+class Matricula {
   collection = null;
   constructor() {
     getDb()
       .then((database) => {
         db = database;
-        this.collection = db.collection('maestros');
+        this.collection = db.collection('matricula');
         if (process.env.MIGRATE === 'true') {
           // Por Si se ocupa algo
         }
@@ -16,18 +16,18 @@ class Maestros {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, email, telefono, direccion, materias, grados) {
-    const newMaestro = {
-        identidad,
-        nombres,
-        apellidos,
-        email,
-        telefono,
-        direccion,
-        materias,
-        grados
+  async new(identidad_alumno, nombre_alumno, grado, seccion, jornada, horario, aula, nombre_maestro) {
+    const newMatricula = {
+        identidad_alumno,
+        nombre_alumno,
+        grado,
+        seccion,
+        jornada,
+        horario,
+        aula,
+        nombre_maestro
     };
-    const rslt = await this.collection.insertOne(newMaestro);
+    const rslt = await this.collection.insertOne(newMatricula);
     return rslt;
   }
 
@@ -58,19 +58,19 @@ class Maestros {
     return myDocument;
   }
 
-  async updateOne(id, identidad, nombres, apellidos, email, telefono, direccion, materias,grados ) {
+  async updateOne(id, identidad_alumno, nombre_alumno, grado, seccion, jornada, horario, aula, nombre_maestro) {
     const filter = {_id: new ObjectId(id)};
-    // UPDATE MAESTROS SET campo=valor, campo=valor where id= id;
+    // UPDATE ESTUDIANTES SET campo=valor, campo=valor where id= id;
     const updateCmd = {
       '$set':{
-        identidad,
-        nombres,
-        apellidos,
-        email,
-        telefono,
-        direccion,
-        materias,
-        grados
+        identidad_alumno,
+        nombre_alumno,
+        grado,
+        seccion,
+        jornada,
+        horario,
+        aula,
+        nombre_maestro
       }
     };
     return await this.collection.updateOne(filter, updateCmd);
@@ -84,15 +84,6 @@ class Maestros {
     return myDocument;
   }
 
-  async detectedId (identidad){
-    const filter = {identidad};
-    return await this.collection.findOne(filter);
-  }
-
-  async detectednombremaestro (nombres){
-    const filter = {nombres};
-    return await this.collection.findOne(filter);
-  }
 }
 
-module.exports = Maestros;
+module.exports = Estudiantes;

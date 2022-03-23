@@ -16,11 +16,10 @@ class Estudiantes {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo) {
+  async new(identidad, nombre_Completo, edad, nombre_encargado, telefono_encargado, correo) {
     const newEstudiante = {
         identidad,
-        nombres,
-        apellidos,
+        nombre_Completo,
         edad,
         nombre_encargado,
         telefono_encargado,
@@ -57,14 +56,13 @@ class Estudiantes {
     return myDocument;
   }
 
-  async updateOne(id, identidad, nombres, apellidos, edad, nombre_encargado, telefono_encargado, correo) {
+  async updateOne(id, identidad, nombre_Completo, edad, nombre_encargado, telefono_encargado, correo) {
     const filter = {_id: new ObjectId(id)};
     // UPDATE ESTUDIANTES SET campo=valor, campo=valor where id= id;
     const updateCmd = {
       '$set':{
         identidad,
-        nombres,
-        apellidos,
+        nombre_Completo,
         edad,
         nombre_encargado,
         telefono_encargado,
@@ -84,6 +82,11 @@ class Estudiantes {
 
   async detectedId (identidad){
     const filter = {identidad};
+    return await this.collection.findOne(filter);
+  }
+
+  async detectednombrealumno (nombre_Completo){
+    const filter = {nombre_Completo};
     return await this.collection.findOne(filter);
   }
 }
