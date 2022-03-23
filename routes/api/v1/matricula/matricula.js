@@ -143,15 +143,54 @@ router.post('/new',validatenew, async (req, res) => {
 //router.put();
 router.put('/update/:id',validateupdate, async (req, res) => {
     try{
-      const { identidad, nombre_Completo, edad, nombre_encargado, telefono_encargado, correo  } = req.body;
+      const { identidad_alumno, nombre_alumno, grado, seccion, jornada, horario, aula, nombre_maestro  } = req.body;
+      const busqueda = await estudiantesModel.detectedId(identidad_alumno)
+      const busqueda2 = await estudiantesModel.detectednombrealumno(nombre_alumno)
+      const busqueda3 = await gradosModel.detectedId(grado)
+      const busqueda4 = await seccionesModel.detectedId(seccion)
+      const busqueda5 = await jornadaModel.detectedId(jornada)
+      const busqueda6 = await horariosModel.detectedId(horario)
+      const busqueda7 = await aulasModel.detectedNumber(aula)
+      const busqueda8 = await maestrosModel.detectednombremaestro(nombre_maestro)
       const { id } = req.params;
-      const result = await estudiantesModel.updateOne( id, identidad, nombre_Completo, edad, nombre_encargado, telefono_encargado, correo );
-      res.status(200).json({
-      status:'ok',
-      result
-      });
-        res.status(400).json({status:'Estudiante con esta identidad ya fue ingresado', error:1});
-      
+      if(busqueda){
+        if(busqueda2){
+            if(busqueda3){
+                if(busqueda4){
+                    if(busqueda5){
+                        if(busqueda6){
+                            if(busqueda7){
+                                if(busqueda8){
+                                  const result = await matriculaModel.updateOne( id, identidad_alumno, nombre_alumno, grado, seccion, jornada, horario, aula, nombre_maestro);
+                                  res.status(200).json({
+                                  status:'ok',
+                                  result
+                                  });
+                                }else{
+                                    res.status(400).json({status:'Nombre del maestro no encontrado', error:7});
+                                }
+                            }else{
+                                res.status(400).json({status:'Aula no encontrada', error:7});
+                            }
+                        }else{
+                            res.status(400).json({status:'Horario no encontrada', error:6});
+                        }
+                    }else{
+                        res.status(400).json({status:'Jornada no encontrada', error:5});
+                    }
+                }else{
+                    res.status(400).json({status:'Seccion no encontrada', error:4});
+                }
+            }else{
+                res.status(400).json({status:'Grado no encontrado', error:3});
+            }
+
+        }else{
+            res.status(400).json({status:'Nombre de estudiante no registrado', error:2});
+        }
+    }else{
+      res.status(400).json({status:'Identidad del estudiante no encontrada', error:1});
+    }
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });
