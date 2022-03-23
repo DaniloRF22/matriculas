@@ -1,9 +1,9 @@
 const express= require('express');
 const router = express.Router();
-const {validatebyId} = require('../validators/maestrosValidacion');
-const {validatenew} = require('../validators/maestrosValidacion');
-const {validateupdate} = require('../validators/estudaintesValidacion');
-const {validatedelete} = require('../validators/estudaintesValidacion');
+
+const {validatenew} = require('../validators/matriculasValidacion');
+const {validateupdate} = require('../validators/matriculasValidacion');
+
 
 const Matricula = require('../../../../dao/matricula/matricula.model');
 const matriculaModel = new Matricula();
@@ -43,7 +43,7 @@ router.get('/all', async (req, res) => {
 
 
 // /byid/1;
-router.get('/byid/:id',validatebyId, async (req, res) => {
+router.get('/byid/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const row = await matriculaModel.getById(parseInt(id));
@@ -75,7 +75,7 @@ router.get('/byid/:id',validatebyId, async (req, res) => {
 
 router.post('/new',validatenew, async (req, res) => {
     const { identidad_alumno, nombre_alumno, grado, seccion, jornada, horario, aula, nombre_maestro} = req.body;
-    const busqueda = await estudiantesModel.detectedId(identidad)
+    const busqueda = await estudiantesModel.detectedId(identidad_alumno)
     const busqueda2 = await estudiantesModel.detectednombrealumno(nombre_alumno)
     const busqueda3 = await gradosModel.detectedId(grado)
     const busqueda4 = await seccionesModel.detectedId(seccion)
@@ -83,8 +83,10 @@ router.post('/new',validatenew, async (req, res) => {
     const busqueda6 = await horariosModel.detectedId(horario)
     const busqueda7 = await aulasModel.detectedNumber(aula)
     const busqueda8 = await maestrosModel.detectednombremaestro(nombre_maestro)
+    const bus = await matriculaModel.detectedId(identidad_alumno)
 
     try {
+      if(!bus){
         if(busqueda){
             if(busqueda2){
                 if(busqueda3){
@@ -124,7 +126,9 @@ router.post('/new',validatenew, async (req, res) => {
         }else{
           res.status(400).json({status:'Identidad del estudiante no encontrada', error:1});
         }
-        
+      }else{
+        res.status(400).json({status:'Estudiante ya matriculado', error:0});
+      }
       } catch (ex) {
         console.log(ex);
         res.status(500).json(
@@ -155,7 +159,7 @@ router.put('/update/:id',validateupdate, async (req, res) => {
   });
 
   //router.delete();
-  router.delete('/delete/:id', validatedelete, async (req, res) => {
+  router.delete('/delete/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const result = await matriculaModel.deleteOne(id);

@@ -27,7 +27,9 @@ const validateupdate = [
         .exists()
         .not()
         .isEmpty()
-        .isAlpha(),
+        .isAlpha()
+        .isLength({max: 1})
+        .isLength({min: 1}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }

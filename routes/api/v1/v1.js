@@ -9,6 +9,7 @@ const maestrosRoutes =require('./maestros/maestros');
 const jornadaRoutes = require ('./jornada/jornada');
 const horarioRoutes = require ('./horario/horario');
 const seguridadRoutes = require('./seguridad/seguridad');
+const matriculasRoutes = require('./matricula/matricula');
 const { verifyApiHeaderToken} = require('./headerVerifyMiddleware');
 
 router.use('/estudiantes',verifyApiHeaderToken, estudiantesRoutes);
@@ -20,5 +21,6 @@ router.use('/jornada',verifyApiHeaderToken,jornadaRoutes);
 router.use('/horario',verifyApiHeaderToken,horarioRoutes);
 //router.use(passport.initialize());
 router.use('/seguridad', verifyApiHeaderToken, seguridadRoutes);
+router.use('/matricula',verifyApiHeaderToken,matriculasRoutes);
 
 module.exports= router;

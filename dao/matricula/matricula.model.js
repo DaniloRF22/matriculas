@@ -83,7 +83,10 @@ class Matricula {
     const myDocument = await this.collection.deleteOne(filter);
     return myDocument;
   }
-
+  async detectedId (identidad_alumno){
+    const filter = {identidad_alumno};
+    return await this.collection.findOne(filter);
+  }
 }
 
-module.exports = Estudiantes;
+module.exports = Matricula;

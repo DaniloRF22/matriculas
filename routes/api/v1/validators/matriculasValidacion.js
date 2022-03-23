@@ -12,80 +12,110 @@ const validatebyId = [
 ]
 
 const validatenew = [
-    check('identidad')
+    check('identidad_alumno')
         .exists()
         .not()
         .isEmpty()
         .isNumeric()
         .isLength({max: 13})
         .isLength({min: 13}),
-    check('nombre_Completo')
+    check('nombre_alumno')
         .exists()
         .not()
         .isEmpty(),
-    check('edad')
+    check('grado')
         .exists()
         .not()
         .isEmpty()
         .isNumeric()
-        .isLength({max: 2})
-        .isLength({min: 2}),
-    check('nombre_encargado')
+        .isLength({max: 1})
+        .isLength({min: 1}),
+    check('seccion')
         .exists()
         .not()
-        .isEmpty(),
-    check('telefono_encargado')
+        .isEmpty()
+        .isAlpha()
+        .isLength({max: 1})
+        .isLength({min: 1}),
+    check('jornada')
+        .exists()
+        .not()
+        .isEmpty()
+        .isAlpha()
+        .isLength({max: 10}),
+     check('horario')
+        .exists()
+        .not()
+        .isEmpty()
+        .isLength({max:7})
+        .isLength({min:7}),
+     check('aula')
         .exists()
         .not()
         .isEmpty()
         .isNumeric()
-        .isLength({max: 8})
-        .isLength({min: 8}),
-     check('correo')
+        .isLength({max:1})
+        .isLength({min:1}),
+     check('nombre_maestro')
         .exists()
         .not()
         .isEmpty()
-        .isEmail(),
+        .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
 ]
 
 const validateupdate = [
-    check('identidad')
+    check('identidad_alumno')
     .exists()
     .not()
     .isEmpty()
     .isNumeric()
     .isLength({max: 13})
     .isLength({min: 13}),
-check('nombre_Completo')
+check('nombre_alumno')
     .exists()
     .not()
     .isEmpty(),
-check('edad')
+check('grado')
     .exists()
     .not()
     .isEmpty()
     .isNumeric()
-    .isLength({max: 2})
-    .isLength({min: 2}),
-check('nombre_encargado')
+    .isLength({max: 1})
+    .isLength({min: 1}),
+check('seccion')
     .exists()
     .not()
-    .isEmpty(),
-check('telefono_encargado')
+    .isEmpty()
+    .isAlpha()
+    .isLength({max: 1})
+    .isLength({min: 1}),
+check('jornada')
+    .exists()
+    .not()
+    .isEmpty()
+    .isAlpha()
+    .isLength({max: 10}),
+ check('horario')
+    .exists()
+    .not()
+    .isEmpty()
+    .isLength({max:7})
+    .isLength({min:7}),
+ check('aula')
     .exists()
     .not()
     .isEmpty()
     .isNumeric()
-    .isLength({max: 8})
-    .isLength({min: 8}),
- check('correo')
+    .isLength({max:1})
+    .isLength({min:1}),
+ check('nombre_maestro')
     .exists()
     .not()
     .isEmpty()
-    .isEmail(),
+    .isAlpha(),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
