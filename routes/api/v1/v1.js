@@ -11,16 +11,19 @@ const horarioRoutes = require ('./horario/horario');
 const seguridadRoutes = require('./seguridad/seguridad');
 const matriculasRoutes = require('./matricula/matricula');
 const { verifyApiHeaderToken} = require('./headerVerifyMiddleware');
+const {passport, jwtMiddleware} = require('./seguridad/jwtHelper');
 
-router.use('/estudiantes',verifyApiHeaderToken, estudiantesRoutes);
-router.use('/aulas',verifyApiHeaderToken,aulasRoutes);
-router.use('/secciones',verifyApiHeaderToken,seccionesRoutes);
-router.use('/grados',verifyApiHeaderToken,gradosRoutes);
-router.use('/maestros',verifyApiHeaderToken,maestrosRoutes);
-router.use('/jornada',verifyApiHeaderToken,jornadaRoutes);
-router.use('/horario',verifyApiHeaderToken,horarioRoutes);
-//router.use(passport.initialize());
+
+router.use('/estudiantes',verifyApiHeaderToken,jwtMiddleware, estudiantesRoutes);
+router.use('/aulas',verifyApiHeaderToken,jwtMiddleware,aulasRoutes);
+router.use('/secciones',verifyApiHeaderToken,jwtMiddleware,seccionesRoutes);
+router.use('/grados',verifyApiHeaderToken,jwtMiddleware,gradosRoutes);
+router.use('/maestros',verifyApiHeaderToken,jwtMiddleware,maestrosRoutes);
+router.use('/jornada',verifyApiHeaderToken,jwtMiddleware,jornadaRoutes);
+router.use('/matricula',verifyApiHeaderToken,jwtMiddleware,matriculasRoutes);
+router.use('/horario',verifyApiHeaderToken,jwtMiddleware,horarioRoutes);
+router.use(passport.initialize());
 router.use('/seguridad', verifyApiHeaderToken, seguridadRoutes);
-router.use('/matricula',verifyApiHeaderToken,matriculasRoutes);
+
 
 module.exports= router;
