@@ -95,8 +95,6 @@ router.put('/update/:id',validateupdate, async (req, res) => {
       status:'ok',
       result
       });
-        res.status(400).json({status:'Estudiante con esta identidad ya fue ingresado', error:1});
-      
     } catch(ex){
       console.log(ex);
       res.status(500).json({ status: 'failed' });
