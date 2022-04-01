@@ -59,6 +59,13 @@ const validatenew = [
         .isNumeric()
         .isLength({max: 1})
         .isLength({min: 1}),
+    check('estado')
+        .exists()
+        .not()
+        .isEmpty()
+        .isAlpha()
+        .isLength({max:5})
+        .isLength({min:4}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }
@@ -113,6 +120,13 @@ const validateupdate = [
         .isNumeric()
         .isLength({max: 1})
         .isLength({min: 1}),
+    check('estado')
+        .exists()
+        .not()
+        .isEmpty()
+        .isAlpha()
+        .isLength({max:5})
+        .isLength({min:4}),
     (req, res, next) =>{
         validateResult(req, res, next)
     }

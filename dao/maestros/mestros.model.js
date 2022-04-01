@@ -16,7 +16,7 @@ class Maestros {
       .catch((err) => { console.error(err) });
   }
 
-  async new(identidad, nombres, apellidos, email, telefono, direccion, materias, grados) {
+  async new(identidad, nombres, apellidos, email, telefono, direccion, materias, grados, estado) {
     const newMaestro = {
         identidad,
         nombres,
@@ -25,7 +25,8 @@ class Maestros {
         telefono,
         direccion,
         materias,
-        grados
+        grados,
+        estado
     };
     const rslt = await this.collection.insertOne(newMaestro);
     return rslt;
@@ -58,7 +59,7 @@ class Maestros {
     return myDocument;
   }
 
-  async updateOne(id, identidad, nombres, apellidos, email, telefono, direccion, materias,grados ) {
+  async updateOne(id, identidad, nombres, apellidos, email, telefono, direccion, materias,grados, estado ) {
     const filter = {_id: new ObjectId(id)};
     // UPDATE MAESTROS SET campo=valor, campo=valor where id= id;
     const updateCmd = {
@@ -70,7 +71,8 @@ class Maestros {
         telefono,
         direccion,
         materias,
-        grados
+        grados,
+        estado
       }
     };
     return await this.collection.updateOne(filter, updateCmd);
